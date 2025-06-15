@@ -1,34 +1,38 @@
-// src/pages/ProductDetail.jsx
-import { useParams } from 'react-router-dom';
+// frontend/src/pages/ProductDetail.jsx
 import { useEffect, useState } from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { Container, Button, Image } from 'react-bootstrap';
 
 export default function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/products/${id}`)
-      .then(res => setProduct(res.data))
-      .catch(err => console.log(err));
+    axios.get(`http://localhost:5000/api/products/${id}`).then(res => setProduct(res.data));
   }, [id]);
 
-  if (!product) return <p>Đang tải sản phẩm...</p>;
+  const handleAddToCart = () => {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const exist = cart.find(item => item.id === product.id);
+    if (exist) {
+      exist.quantity += 1;
+    } else {
+      cart.push({ ...product, quantity: 1 });
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert('Đã thêm vào giỏ hàng');
+  };
+
+  if (!product) return <p>Đang tải...</p>;
 
   return (
     <Container className="mt-4">
-      <Row>
-        <Col md={6}>
-          <img src={product.image} className="img-fluid" alt={product.name} />
-        </Col>
-        <Col md={6}>
-          <h2>{product.name}</h2>
-          <p>{product.description}</p>
-          <h4>{product.price.toLocaleString()}₫</h4>
-          <Button>Thêm vào giỏ hàng</Button>
-        </Col>
-      </Row>
+      <h2>{product.name}</h2>
+      <Image src={product.image} width={300} />
+      <p>{product.description}</p>
+      <h4>Giá: {product.price.toLocaleString()}₫</h4>
+      <Button onClick={handleAddToCart}>Thêm vào giỏ</Button>
     </Container>
   );
 }
