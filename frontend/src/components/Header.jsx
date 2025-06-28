@@ -1,6 +1,7 @@
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { isAdmin, getUser } from '../utils/auth';
+import { useEffect } from 'react';
 
 export default function Header() {
   const user = getUser();
@@ -11,8 +12,16 @@ export default function Header() {
     window.location.href = '/';
   };
 
+  // Đảm bảo thêm padding-top cho body đúng bằng chiều cao navbar (56px mặc định)
+  useEffect(() => {
+    document.body.style.paddingTop = '56px';
+    return () => {
+      document.body.style.paddingTop = '0';
+    };
+  }, []);
+
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
+    <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
       <Container>
         <Navbar.Brand as={Link} to="/">🍷 WineShop</Navbar.Brand>
         <Navbar.Toggle aria-controls="main-navbar" />

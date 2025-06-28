@@ -1,49 +1,49 @@
 // src/App.jsx
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Home from './pages/Home';
-import About from './pages/About';
-import Products from './pages/Products';
-import News from './pages/News';
-import Contact from './pages/Contact';
-import Login from './pages/Login';
-import Cart from './pages/Cart';
-import ProductDetail from './pages/ProductDetail';
-import AdminLayout from './pages/admin/AdminLayout';
-import AdminProduct from './pages/admin/AdminProduct';
-import AdminOrder from './pages/admin/AdminOrder';
-import AdminCatalog from './pages/admin/AdminCatalog';
-import AdminDashboard from './pages/admin/AdminDashboard';
-import './App.css';
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import MainLayout from "./components/MainLayout";
+import "./app.css";
 
-function App() {
+// Các trang người dùng
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Products from "./pages/Products";
+import News from "./pages/News";
+import Cart from "./pages/Cart";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import ProductDetail from "./pages/ProductDetail";
+
+// Các trang admin
+import AdminProducts from "./pages/admin/AdminProduct";
+import AdminOrders from "./pages/admin/AdminOrder";
+import AdminCatalogs from "./pages/admin/AdminCatalog";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+
+export default function App() {
   return (
     <BrowserRouter>
-      <Header />
-      <main className="flex-grow-1">
-        <Routes>
+      <Routes>
+        {/* Layout dùng chung cho cả user + admin */}
+        <Route element={<MainLayout />}>
+          {/* Trang người dùng */}
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/news" element={<News />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/:id" element={<ProductDetail />} />
+          <Route path="/news" element={<News />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
-          //Admin
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<AdminDashboard />} />
-            <Route path="products" element={<AdminProduct />} />
-            <Route path="orders" element={<AdminOrder />} />
-            <Route path="catalogs" element={<AdminCatalog />} />
-          </Route>
-        </Routes>
-      </main>
-      <Footer />
+          {/* Trang admin */}
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/products" element={<AdminProducts />} />
+          <Route path="/admin/orders" element={<AdminOrders />} />
+          <Route path="/admin/catalogs" element={<AdminCatalogs />} />
+        </Route>
+      </Routes>
     </BrowserRouter>
   );
 }
-
-export default App;

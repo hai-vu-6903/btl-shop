@@ -29,7 +29,8 @@ export default function Home() {
         </Carousel.Item>
       </Carousel>
 
-      <Container className="mt-4">
+      {/* <Container className="mt-4"> */}
+      <Container className="mt-4" style={{ paddingLeft: '100px', paddingRight: '100px' }}>
         <h2>Sản phẩm nổi bật</h2>
         <Row className="mt-3">
           {featured.map(product => (
