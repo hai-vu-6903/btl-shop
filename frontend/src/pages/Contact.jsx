@@ -3,9 +3,10 @@ export default function ContactPage() {
   return (
     <div className="p-4">
       <h2>Liên hệ</h2>
-      <p>🏢 Địa chỉ: 123 Đường Vang, Quận Rượu, TP. Nho</p>
-      <p>📧 Email: lienhe@wineshop.vn</p>
-      <p>📞 Điện thoại: 0123 456 789</p>
+      <p>Họ tên: Vũ Thế Hải</p>
+      <p>Địa chỉ: 30 Đường Tựu Liệt, Văn Điển, Thanh Trì, Hà Nội</p>
+      <p>Email: vthai692003@gmail.com</p>
+      <p>Điện thoại: 0965 218 981</p>
     </div>
   );
 }
