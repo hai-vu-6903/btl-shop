@@ -8,6 +8,7 @@
 - npm install
 - node server.js
 => Truy cập: http://localhost:5000
+
 **C. Cài đặt Frontend**
 - cd frontend
 - npm install
